@@ -51,7 +51,7 @@ function Base.:*(s1::Series{T,N}, s2::Series{T,N}) where {T,N}
 		return c
 	end
 
-	return Series2(ntuple(mul, N))
+	return Series(ntuple(mul, N))
 end
 Base.:*(s::Series{T,N}, x::Number) where {T,N} = Series(ntuple(i -> s.c[i]*x, N))
 Base.:*(x::Number, s::Series{T,N}) where {T,N} = Series(ntuple(i -> s.c[i]*x, N))
@@ -114,7 +114,7 @@ function Base.:^(s::Series{T,N}, n::Int) where {T,N}
     np = n
     r = Series(ntuple(i -> i == 1 ? one(T) : zero(T), N))
     while true
-        if mod(np, 2) == 1
+        if (mod(np, 2) == 1)
             r = r*sp
         end
 
